@@ -4,9 +4,9 @@ import {
   Sheet,
   SheetClose,
   SheetContent,
-  SheetTrigger,
-  SheetTitle,
   SheetDescription,
+  SheetTitle,
+  SheetTrigger,
 } from '@/components/ui/sheet';
 import { sidebarLinks } from '@/constants';
 import { cn } from '@/lib/utils';
@@ -43,12 +43,11 @@ const MobileNav = () => {
             href='/'
             className='flex items-center gap-1'
           >
-            <Image
-              src='/icons/logo.svg'
-              width={32}
-              height={32}
-              alt='logo'
-              className='max-sm:size-10'
+            <Image src='/icons/logo.svg'
+                   width={32}
+                   height={32}
+                   alt='logo'
+                   className='max-sm:size-10'
             />
             <span className='text-[26px] font-extrabold text-white'>
               Shiloh
@@ -59,7 +58,7 @@ const MobileNav = () => {
             <SheetClose asChild>
               <section className='flex h-full flex-col gap-6 pt-16 text-white'>
                 {sidebarLinks.map((link) => {
-                  const isActive = pathname === link.route;
+                  const isActive = pathname === link.route || pathname.startsWith(`${link.route}/`);
 
                   return (
                     <SheetClose
