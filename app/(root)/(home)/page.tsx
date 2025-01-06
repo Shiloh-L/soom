@@ -1,4 +1,4 @@
-import React from 'react';
+import MeetingTypeList from '@/components/MeetingTypeList';
 
 const Home = () => {
   const now = new Date();
@@ -12,7 +12,7 @@ const Home = () => {
   return (
     <section className='flex size-full flex-col gap-10 text-white'>
       <div className='min-h-[300px] w-full rounded-[20px] bg-hero bg-cover'>
-        <div className='flex h-full flex-col justify-between max-md:px-5 max-md:py-8 lg:p-11'>
+        <div className='flex h-full flex-col justify-between px-5 py-8 lg:p-11'>
           <h2 className='glassmorphism max-w-[270px] py-2 text-sky-2 rounded text-center'>
             Upcoming Meeting at: 12:30 PM
           </h2>
@@ -26,6 +26,8 @@ const Home = () => {
           </div>
         </div>
       </div>
+
+      <MeetingTypeList />
     </section>
   );
 };
