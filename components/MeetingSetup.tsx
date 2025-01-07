@@ -10,6 +10,7 @@ import {
   useState,
 } from 'react';
 import {Button} from '@/components/ui/button';
+import {toast} from '@/hooks/use-toast';
 
 const MeetingSetup = ({setIsSetupComplete}: {
   setIsSetupComplete: (value: boolean) => void
@@ -22,14 +23,24 @@ const MeetingSetup = ({setIsSetupComplete}: {
   }
 
   useEffect(() => {
-    const toggleCameraAndMic = async () => {
-      await call?.camera.toggle();
-      await call?.microphone.toggle();
+    const enableCameraAndMic = async () => {
+      await call?.camera.enable();
+      await call?.microphone.enable();
+    };
+
+    const disableCameraAndMic = async () => {
+      await call?.camera.disable();
+      await call?.microphone.disable();
     };
     if (isMicCamToggleOn) {
-      toggleCameraAndMic();
+      disableCameraAndMic().then(() => {
+        toast({title: 'Mic and Camera turned off'});
+      });
     } else {
-      toggleCameraAndMic();
+      enableCameraAndMic().then(() => {
+            toast({title: 'Mic and Camera turned on'});
+          },
+      );
     }
   }, [isMicCamToggleOn, call?.camera, call?.microphone]);
 

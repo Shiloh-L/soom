@@ -5,7 +5,10 @@ import {useState} from 'react';
 import {useRouter} from 'next/navigation';
 import MeetingModal from '@/components/MeetingModal';
 import {useUser} from '@clerk/nextjs';
-import {Call, useStreamVideoClient} from '@stream-io/video-react-sdk';
+import {
+  Call,
+  useStreamVideoClient,
+} from '@stream-io/video-react-sdk';
 import {useToast} from '@/hooks/use-toast';
 import {Textarea} from '@/components/ui/textarea';
 import ReactDatePicker from 'react-datepicker';
@@ -52,15 +55,6 @@ const MeetingTypeList = () => {
         },
       });
 
-      // Enable
-      call.update({
-        settings_override: {
-          recording: {
-            mode: 'available',
-          },
-        },
-      });
-
       setCallDetails(call);
 
       if (!values.description) {
@@ -75,6 +69,9 @@ const MeetingTypeList = () => {
       });
     }
   };
+
+  const meetingLink = `${process.env.NEXT_PUBLIC_BASE_URL}/meeting/${callDetails?.id}`;
+
   return (
       <section className='grid grid-cols-1 gap-5 md:grid-cols-2 xl:grid-cols-4'>
         <HomeCard img='/icons/add-meeting.svg'
@@ -138,8 +135,8 @@ const MeetingTypeList = () => {
                           onClose={() => setMeetingState(undefined)}
                           title='Meeting Created'
                           handleClick={() => {
-                            // navigator.clipboard.writeText(meetingLink);
-                            // toast({title: 'Link copied'});
+                            navigator.clipboard.writeText(meetingLink);
+                            toast({title: 'Link copied'});
                           }}
                           image='/icons/checked.svg'
                           buttonIcon='/icons/copy.svg'
